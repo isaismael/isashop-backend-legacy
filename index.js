@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const App = require('./api/api');
+const sequelize = require('./api/connect');
 
 dotenv.config();
 
@@ -19,20 +20,31 @@ class Server {
         this.app.use(cors({
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-        }))
+        }));
     }
 
     routes() {
         this.app.use('/api', this.appInstance.routes());
     }
 
-    listen() {
-        this.app.listen(this.port, () => {
-            console.log(`Servidor corriendo en el puerto ${this.port}...`)
-        })
-    }
+    async start() {
+        try {
+            await sequelize.authenticate();
+            console.log('SQLite conectada');
 
+            await sequelize.sync();
+            console.log('Tablas sincronizadas');
+
+            this.app.listen(this.port, () => {
+                console.log(`Servidor corriendo en el puerto ${this.port}...`);
+            });
+
+        } catch (error) {
+            console.error('Error iniciando el servidor:', error);
+            process.exit(1);
+        }
+    }
 }
 
 const server = new Server();
-server.listen();
+server.start();
