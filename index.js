@@ -2,9 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const App = require('./api/api');
-const sequelize = require('./api/connect');
+const sequelize = require('./api/config/connect');
 
 dotenv.config();
+
+require('./api/models/index');
 
 class Server {
     constructor() {
