@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connect");
 
-class Product extends Model {}
+class Collections extends Model {}
 
-Product.init(
+Collections.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -18,27 +18,6 @@ Product.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    brand: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "brand",
-        key: "id",
-      },
-    },
-    subcategory: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "subcategory",
-        key: "id",
-      },
-    },
-    active: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1,
-    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -49,13 +28,18 @@ Product.init(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    active: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+    },
   },
   {
     sequelize,
-    modelName: "Product",
-    tableName: "product",
+    modelName: "Collections",
+    tableName: "collections",
     timestamps: false,
   }
 );
 
-module.exports = Product;
+module.exports = Collections;

@@ -1,9 +1,20 @@
 const User = require('./user.model');
 const Role = require('./roles.model');
 const Product = require('./product.model');
+const ProductVariation = require('./productVariation.model');
 const SubCategory = require('./subcategory.model');
 const Category = require('./category.model');
 const Departament = require('./departament.model');
+const Brand = require('./brand.model');
+const PruductImage = require('./productImage.model');
+const Tag = require('./tag.model');
+const PruductTag = require('./productTag.model');
+const Color = require('./color.model');
+const Size = require('./size.model');
+const Warehouse = require('./warehouse.model');
+const Stock = require('./stock.model');
+const CollectionProduct = require('./collectionProduct.model');
+const Collections = require('./collections.model');
 
 // -> User tiene la FK → belongsTo
 User.belongsTo(Role, {
@@ -39,7 +50,26 @@ Category.hasMany(SubCategory, {
 });
 
 
+// -> relaciones de producto
+
+
+
 module.exports = {
   User,
   Role,
+  Product,
+  ProductVariation,
+  SubCategory,
+  Category,
+  Departament,
+  Brand,
+  PruductImage,
+  Tag,
+  PruductTag,
+  Color,
+  Size,
+  Warehouse,
+  Stock,
+  CollectionProduct,
+  Collections
 };
