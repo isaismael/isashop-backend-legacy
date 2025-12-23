@@ -13,8 +13,16 @@ const Color = require('./color.model');
 const Size = require('./size.model');
 const Warehouse = require('./warehouse.model');
 const Stock = require('./stock.model');
-const CollectionProduct = require('./collectionProduct.model');
 const Collections = require('./collections.model');
+const CollectionProduct = require('./collectionProduct.model');
+const Customer = require('./customer.model');
+const ShippingAdress = require('./shippingAdress.model');
+const Order = require('./order.model');
+const OrderItem = require('./orderItem.model');
+const PaymentMethod = require('./paymentMethod.model');
+const Cart = require('./cart.model');
+const CartItem = require('./cartItem.model');
+
 
 // -> User tiene la FK → belongsTo
 User.belongsTo(Role, {
@@ -71,5 +79,12 @@ module.exports = {
   Warehouse,
   Stock,
   CollectionProduct,
-  Collections
+  Collections,
+  Customer,
+  ShippingAdress,
+  Order,
+  OrderItem,
+  PaymentMethod,
+  Cart,
+  CartItem
 };

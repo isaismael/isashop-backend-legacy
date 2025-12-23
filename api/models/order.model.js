@@ -1,0 +1,64 @@
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connect');
+
+class Order extends Model { }
+
+Order.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
+    order_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    customer_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'customer',
+            key: 'id',
+        },
+    },
+    total_amount: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+    },
+    payment_method: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'payment_method',
+            key: 'id',
+        }
+    },
+    status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    shipping_adress: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'shipping_adress',
+            key: 'id',
+        }
+    },
+    warehouse_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'warehouse',
+            key: 'id',
+        }
+    },
+},
+    {
+        sequelize,
+        modelName: 'Order',
+        tableName: 'order',
+        timestamps: false,
+    })
+
+module.exports = Order;
