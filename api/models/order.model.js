@@ -25,7 +25,7 @@ Order.init({
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
     },
-    payment_method: {
+    payment_method_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -37,7 +37,7 @@ Order.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    shipping_adress: {
+    shipping_adress_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

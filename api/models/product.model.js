@@ -18,7 +18,7 @@ Product.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    brand: {
+    brand_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -26,7 +26,7 @@ Product.init(
         key: "id",
       },
     },
-    subcategory: {
+    subcategory_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
