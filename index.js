@@ -38,7 +38,7 @@ class Server {
             console.log('Tablas sincronizadas');
 
             this.app.listen(this.port, () => {
-                console.log(`Servidor corriendo en el puerto ${this.port}...`);
+                console.log(`Servidor corriendo en el http://localhost:${this.port}...`);
             });
 
         } catch (error) {

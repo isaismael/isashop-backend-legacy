@@ -1,4 +1,5 @@
 const express = require('express');
+const routes = require('./routes');
 
 class App{
     constructor(){
@@ -7,8 +8,8 @@ class App{
     }
 
     loadRoutes(){
-        // this.router.use('/users', require('./routes/auth/user.routes'));
-        console.log("Desde app")
+        this.router.use('/', routes);
+        console.log("Rutas cargadas");
     }
 
     routes(){
