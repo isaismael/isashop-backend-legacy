@@ -3,7 +3,7 @@ const Role = require('./roles.model');
 const UserRoles = require('./userRoles.model');
 const Permissions = require('./permissions.model');
 const RolePermissions = require('./rolePermissions.model');
-
+// ->
 const Product = require('./product.model');
 const ProductVariation = require('./productVariation.model');
 const SubCategory = require('./subcategory.model');
@@ -30,23 +30,33 @@ const CartItem = require('./cartItem.model');
 
 // -> user - role
 User.belongsToMany(Role, {
-  through: 'user_roles',
-  as: 'roles'
+  through: UserRoles,
+  foreignKey: 'user_id',
+  otherKey: 'role_id',
+  as: 'roles',
 });
+
 Role.belongsToMany(User, {
-  through: 'user_roles',
-  as: 'users'
+  through: UserRoles,
+  foreignKey: 'role_id',
+  otherKey: 'user_id',
+  as: 'users',
 });
 
 
-// -> role - permissions
+// role - permissions (N:N)
 Role.belongsToMany(Permissions, {
-  through: 'role_permissions',
-  as: 'permissions'
+  through: RolePermissions,
+  foreignKey: 'role_id',
+  otherKey: 'permission_id',
+  as: 'permissions',
 });
+
 Permissions.belongsToMany(Role, {
-  through: 'role_permissions',
-  as: 'roles'
+  through: RolePermissions,
+  foreignKey: 'permission_id',
+  otherKey: 'role_id',
+  as: 'roles',
 });
 
 
@@ -97,33 +107,33 @@ Category.hasMany(SubCategory, {
 
 
 // -> product_img - product
-ProductImage.belongsTo(Product,{
+ProductImage.belongsTo(Product, {
   foreignKey: 'product_id',
   as: 'product',
 })
-Product.hasMany(ProductImage,{
+Product.hasMany(ProductImage, {
   foreignKey: 'product_id',
   as: 'product_images',
 })
 
 
 // -> product_img - product_img
-ProductImage.belongsTo(ProductVariation,{
+ProductImage.belongsTo(ProductVariation, {
   foreignKey: 'product_variation_id',
   as: 'product_variation',
 })
-ProductVariation.hasMany(ProductImage,{
+ProductVariation.hasMany(ProductImage, {
   foreignKey: 'product_variation_id',
   as: 'product_images',
 })
 
 
 // -> tag - product_tag
-Tag.belongsTo(ProductTag,{
+Tag.belongsTo(ProductTag, {
   foreignKey: 'tag_id',
   as: 'product_tag',
 })
-ProductTag.hasMany(Tag,{
+ProductTag.hasMany(Tag, {
   foreignKey: 'tag_id',
   as: 'tags',
 })

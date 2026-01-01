@@ -1,26 +1,26 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
+const { User, UserRoles, Role, Permissions } = require('../models');
 
 class AuthService {
+
   async register(userData) {
     const { name, last_name, email, password, role_id } = userData;
 
-    // Verificar si el usuario ya existe
     const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      throw new Error('El usuario ya existe');
-    }
+    if (existingUser) throw new Error('El usuario ya existe');
 
-    // Hashear la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Crear el usuario
     const user = await User.create({
       name,
       last_name,
       email,
       password: hashedPassword,
+    });
+
+    await UserRoles.create({
+      user_id: user.id,
       role_id,
     });
 
@@ -28,35 +28,44 @@ class AuthService {
   }
 
   async login(email, password) {
-    // Buscar el usuario
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      throw new Error('Credenciales inválidas');
-    }
+    const user = await User.findOne({
+      where: { email },
+      include: {
+        model: Role,
+        as: 'roles',
+        through: { attributes: [] },
+        include: {
+          model: Permissions,
+          as: 'permissions',
+          through: { attributes: [] },
+        },
+      },
+    });
 
-    // Verificar la contraseña
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      throw new Error('Credenciales inválidas');
-    }
+    if (!user) throw new Error('Credenciales inválidas');
 
-    // Generar JWT
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) throw new Error('Credenciales inválidas');
+
+    const roles = user.roles.map(r => r.name);
+    const permissions = [
+      ...new Set(user.roles.flatMap(r => r.permissions.map(p => p.key)))
+    ];
+
     const token = jwt.sign(
-      { id: user.id, email: user.email, role_id: user.role_id },
+      { sub: user.id, email: user.email, roles, permissions },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
 
-    return { token, user: { id: user.id, name: user.name, email: user.email, role_id: user.role_id } };
+    return {
+      token,
+      user: { id: user.id, name: user.name, email: user.email, roles },
+    };
   }
 
-  async verifyToken(token) {
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      return decoded;
-    } catch (error) {
-      throw new Error('Token inválido');
-    }
+  verifyToken(token) {
+    return jwt.verify(token, process.env.JWT_SECRET);
   }
 }
 

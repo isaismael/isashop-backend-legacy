@@ -28,17 +28,7 @@ User.init(
       allowNull: false,
     },
 
-    // -> fk
-    role_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'roles',
-        key: 'id',
-      },
-    },
-
-    active_status: {
+    is_active: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
     },

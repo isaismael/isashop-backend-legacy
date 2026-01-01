@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connect');
 
-class Roles extends Model {}
+class Roles extends Model { }
 
 Roles.init(
     {
@@ -13,12 +13,20 @@ Roles.init(
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         },
-        active: {
+        is_active: {
             type: DataTypes.INTEGER,
-            allowNull: false,
             defaultValue: 1,
-        }
+        },
+        created_at: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+        },
+        updated_at: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+        },
     },
     {
         sequelize,
