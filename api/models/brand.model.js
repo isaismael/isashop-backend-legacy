@@ -13,10 +13,10 @@ Brand.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    brand_image: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+    // brand_image: {
+    //     type: DataTypes.STRING,
+    //     allowNull: false,
+    // },
     active: {
         type: DataTypes.INTEGER,
         allowNull: false,

@@ -8,7 +8,7 @@ const Product = require('./product.model');
 const ProductVariation = require('./productVariation.model');
 const SubCategory = require('./subcategory.model');
 const Category = require('./category.model');
-const Departament = require('./departament.model');
+const Department = require('./department.model');
 const Brand = require('./brand.model');
 const ProductImage = require('./productImage.model');
 const Tag = require('./tag.model');
@@ -84,12 +84,12 @@ SubCategory.hasMany(Product, {
 
 
 // -> departament - category
-Category.belongsTo(Departament, {
+Category.belongsTo(Department, {
   foreignKey: 'departament_id',
   as: 'departament',
 });
 
-Departament.hasMany(Category, {
+Department.hasMany(Category, {
   foreignKey: 'departament_id',
   as: 'categories',
 });
@@ -336,7 +336,7 @@ module.exports = {
   ProductVariation,
   SubCategory,
   Category,
-  Departament,
+  Department,
   Brand,
   ProductImage,
   Tag,

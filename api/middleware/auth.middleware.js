@@ -15,7 +15,7 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-// ✅ Autorizar por roles (ahora roles es un array)
+// Autorizar por roles (ahora roles es un array)
 const authorizeRoles = (...allowedRoles) => {
   return (req, res, next) => {
     const userRoles = req.user?.roles || [];
@@ -26,7 +26,7 @@ const authorizeRoles = (...allowedRoles) => {
   };
 };
 
-// ✅ Autorizar por permisos (recomendado para endpoints)
+// Autorizar por permisos (recomendado para endpoints)
 const authorizePermissions = (...allowedPermissions) => {
   return (req, res, next) => {
     const userPerms = req.user?.permissions || [];

@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connect');
 
-class Departament extends Model {}
+class Department extends Model {}
 
-Departament.init({
+Department.init({
     id:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -25,4 +25,4 @@ Departament.init({
     timestamps: false,
 })
 
-module.exports = Departament;
+module.exports = Department;
