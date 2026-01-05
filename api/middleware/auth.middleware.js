@@ -31,7 +31,6 @@ const authorizePermissions = (...allowedPermissions) => {
   return (req, res, next) => {
     const userPerms = req.user?.permissions || [];
     const ok = allowedPermissions.every((p) => userPerms.includes(p));
-    // si querés que sea OR en vez de AND: usar some()
 
     if (!ok) return res.status(403).json({ error: 'Acceso denegado' });
     next();
