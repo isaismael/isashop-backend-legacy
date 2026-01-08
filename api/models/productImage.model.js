@@ -35,6 +35,11 @@ ProductImage.init(
       allowNull: false,
       defaultValue: 0,
     },
+    active: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+    },
   },
   {
     sequelize,

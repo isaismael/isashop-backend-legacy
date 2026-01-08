@@ -8,6 +8,9 @@ const ProductRoutes = require('./product.routes');
 const ProductVariationRoutes = require('./productVariation.routes');
 const ColorRoutes = require('./color.routes');
 const SizeRoutes = require('./size.routes');
+const ProductImageRoutes = require('./productImage.routes');
+const WarehouseRoutes = require('./warehouse.routes');
+const StockRoutes = require('./stock.routes');
 
 const router = express.Router();
 
@@ -21,5 +24,8 @@ router.use('/product', ProductRoutes);
 router.use('/productvariation', ProductVariationRoutes);
 router.use('/color', ColorRoutes);
 router.use('/size', SizeRoutes);
+router.use('/productimage', ProductImageRoutes);
+router.use('/warehouse', WarehouseRoutes);
+router.use('/stock', StockRoutes);
 
 module.exports = router;

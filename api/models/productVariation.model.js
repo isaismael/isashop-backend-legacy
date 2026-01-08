@@ -10,6 +10,10 @@ ProductVariation.init(
       autoIncrement: true,
       primaryKey: true,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     sku_code: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -24,7 +28,7 @@ ProductVariation.init(
     },
     color_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "color",
         key: "id",
@@ -32,7 +36,7 @@ ProductVariation.init(
     },
     size_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "size",
         key: "id",
@@ -40,7 +44,7 @@ ProductVariation.init(
     },
     older_price: {
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
+      allowNull: true,
     },
     current_price: {
       type: DataTypes.DECIMAL(10, 2),
@@ -48,7 +52,7 @@ ProductVariation.init(
     },
     discount: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       defaultValue: 0,
     },
     active: {
@@ -56,6 +60,16 @@ ProductVariation.init(
       allowNull: false,
       defaultValue: 1,
     },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    }
   },
   {
     sequelize,

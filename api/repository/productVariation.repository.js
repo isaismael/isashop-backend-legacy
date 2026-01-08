@@ -1,4 +1,4 @@
-const { ProductVariation, Product, Color, Size } = require('../models');
+const { ProductVariation, Product, ProductImage ,Color, Size, Stock } = require('../models');
 
 
 class ProductVariationRepository{
@@ -8,7 +8,9 @@ class ProductVariationRepository{
             include: [
                 { model: Product, as: 'product' },
                 { model: Color, as: 'color' },
-                { model: Size, as: 'size' }
+                { model: Size, as: 'size' },
+                { model: ProductImage, as: 'product_images' },
+                { model: Stock, as: 'stocks' }
             ]
         });
     }
@@ -18,7 +20,9 @@ class ProductVariationRepository{
             include: [
                 { model: Product, as: 'product' },
                 { model: Color, as: 'color' },
-                { model: Size, as: 'size' }
+                { model: Size, as: 'size' },
+                { model: ProductImage, as: 'product_images' },
+                { model: Stock, as: 'stocks' }
             ]
         });
 
