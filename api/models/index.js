@@ -86,7 +86,7 @@ SubCategory.hasMany(Product, {
 // -> departament - category
 Category.belongsTo(Department, {
   foreignKey: 'departament_id',
-  as: 'departament',
+  as: 'department',
 });
 
 Department.hasMany(Category, {
