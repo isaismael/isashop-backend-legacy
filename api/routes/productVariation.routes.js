@@ -4,9 +4,10 @@ const { authenticateToken, authorizeRoles, authorizePermissions } = require('../
 
 const router = express.Router();
 
-
 router.post('/createproductvariation', authenticateToken, authorizePermissions('product.create'), ProductVariationController.createProductVariation);
 router.get('/getproductvariations', authenticateToken, authorizePermissions('product.create'), ProductVariationController.getAllProductVariations);
-
+router.get('/getproductvariation/:id', authenticateToken, authorizeRoles('it'), ProductVariationController.getProductVariationById);
+router.put('/updateproductvaration/:id', authenticateToken, authorizeRoles('it'), ProductVariationController.updateProductVariation);
+router.delete('/deleteproductvaration/:id', authenticateToken, authorizeRoles('it'), ProductVariationController.deleteProductVariation);
 
 module.exports = router;

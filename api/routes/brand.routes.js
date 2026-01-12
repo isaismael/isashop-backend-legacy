@@ -4,9 +4,9 @@ const { authenticateToken, authorizeRoles, authorizePermissions } = require('../
 
 const router = express.Router();
 
-router.get('/getbrands', authenticateToken, authorizeRoles('it'), BrandController.getAllBrands);
-router.get('/getbrandbyId/:id', authenticateToken, authorizeRoles('it'), BrandController.getBrandById);
 router.post('/createbrand', authenticateToken, authorizeRoles('it'), BrandController.createBrand);
+router.get('/getbrands', authenticateToken, authorizeRoles('it'), BrandController.getAllBrands);
+router.get('/getbrand/:id', authenticateToken, authorizeRoles('it'), BrandController.getBrandById);
 router.put('/updatebrand/:id', authenticateToken, authorizeRoles('it'), BrandController.updateBrand);
 router.delete('/deletebrand/:id', authenticateToken, authorizeRoles('it'), BrandController.deleteBrand);
 

@@ -4,9 +4,10 @@ const { authenticateToken, authorizeRoles, authorizePermissions } = require('../
 
 const router = express.Router();
 
-router.get('/getstocks', authenticateToken, authorizeRoles('it'), StockController.getAllStocks);
 router.post('/createstock', authenticateToken, authorizeRoles('it'), StockController.createStock);
-//getStockById
-router.get('/getstockbyid/:id', authenticateToken, authorizeRoles('it'), StockController.getStockById);
+router.get('/getstocks', authenticateToken, authorizeRoles('it'), StockController.getAllStocks);
+router.get('/getstock/:id', authenticateToken, authorizeRoles('it'), StockController.getStockById);
+router.get('/updatestock/:id', authenticateToken, authorizeRoles('it'), StockController.updateStock);
+router.delete('/deletestock/:id', authenticateToken, authorizeRoles('it'), StockController.deleteStock);
 
 module.exports = router;

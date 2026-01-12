@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/createdepartment', authenticateToken, authorizeRoles('it'), DepartmentController.createDepartment);
 router.get('/getdepartments', authenticateToken, authorizeRoles('it'), DepartmentController.getAllDepartments);
+router.get('/getdepartment/:id', authenticateToken, authorizeRoles('it'), DepartmentController.getDepartmentById);
 router.put('/updatedepartment/:id', authenticateToken, authorizeRoles('it'), DepartmentController.updateDepartment);
 router.delete('/deletedepartment/:id', authenticateToken, authorizeRoles('it'), DepartmentController.deleteDepartment)
 
