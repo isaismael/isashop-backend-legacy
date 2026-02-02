@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connect");
 
-class ProductVariation extends Model {}
+class ProductVariation extends Model { }
 
 ProductVariation.init(
   {
@@ -14,9 +14,9 @@ ProductVariation.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    sku_code: {
+    sku_variation: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     product_id: {
       type: DataTypes.INTEGER,

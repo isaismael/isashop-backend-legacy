@@ -1,11 +1,16 @@
 const ProductService = require('../services/product.service');
 
 class ProductController{
-    async getAllProducts(req, res) {
+
+    // -> con paginacionn y limit
+    async getAllProducts(req, res){
         try {
-            const products = await ProductService.getAllProducts();
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const products = await ProductService.getAllProducts(page, limit);
             res.status(200).json(products);
-        } catch (error) {
+        }
+        catch{
             res.status(500).json({ error: error.message });
         }
     }

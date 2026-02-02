@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const {
   Product,
   ProductVariation,
@@ -7,16 +8,51 @@ const {
 } = require("../models");
 
 class ProductRepository {
-  async getAllProducts() {
-    return await Product.findAll({
-      where: { active: 1 },
+  async getAllProducts({
+    page = 1,
+    limit = 10,
+    search = "",
+    categoryId = null,
+    brand_id = null,
+    orderBy = 'createdAt',
+    orderDir = 'DESC'
+  }) {
+    const offset = (page - 1) * limit;
+    const where = {active: 1};
+    if(search){
+      where[Op.or] = [
+        {name: {[Op.like]: `%${search}%`}},
+        {product_sku: {[Op.like]: `%${search}%`}},
+        {id: isNaN(search) ? null : Number(search)}
+      ].filter(Boolean);
+    }
+    if(categoryId){
+      where.subcategory_id = categoryId;
+    }
+    if(brand_id){
+      where.brand_id = brand_id;
+    }
+    const {rows: products, count: total} = await Product.findAndCountAll({
+      where,
       include: [
         { model: Brand, as: "brand" },
         { model: SubCategory, as: "subcategory" },
         { model: ProductVariation, as: "product_variations" },
         { model: ProductImage, as: "product_images" },
       ],
-    });
+      offset,
+      limit,
+      order: [[orderBy, orderDir]],
+    })
+    return {
+      data: products,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
+    }
   }
 
   async getProductById(id) {

@@ -18,6 +18,10 @@ Product.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    product_sku: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     brand_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
