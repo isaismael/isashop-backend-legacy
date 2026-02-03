@@ -34,7 +34,8 @@ CartItem.init({
         sequelize,
         modelName: 'CartItem',
         tableName: 'cart_item',
-        timestamps: false,
+        timestamps: true,
+        underscored: true
     })
 
 module.exports = CartItem;

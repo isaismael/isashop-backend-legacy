@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connect');
 
-class Brand extends Model {}
+class Brand extends Model { }
 
 Brand.init({
     id: {
@@ -13,21 +13,18 @@ Brand.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    // brand_image: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false,
-    // },
     active: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 1,
     },
 },
-{
-    sequelize,
-    modelName: 'Brand',
-    tableName: 'brand',
-    timestamps: false,
-})
+    {
+        sequelize,
+        modelName: 'Brand',
+        tableName: 'brand',
+        timestamps: true,
+        underscored: true
+    })
 
 module.exports = Brand;

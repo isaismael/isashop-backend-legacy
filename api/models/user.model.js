@@ -31,21 +31,14 @@ User.init(
     is_active: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
-    },
-    created_at: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
+    }
   },
   {
     sequelize,
     modelName: 'User',  // -> el nombre de la clase es un singular upper camel case
     tableName: 'users', // -> el nombre de la tabla es en plural. todo miniscula
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 

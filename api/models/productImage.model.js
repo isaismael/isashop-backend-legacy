@@ -45,7 +45,8 @@ ProductImage.init(
     sequelize,
     modelName: "PruductImage",
     tableName: "product_image",
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 

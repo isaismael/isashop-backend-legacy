@@ -18,27 +18,18 @@ Collections.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
     active: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 1,
-    },
+    }
   },
   {
     sequelize,
     modelName: "Collections",
     tableName: "collections",
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 

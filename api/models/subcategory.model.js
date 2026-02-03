@@ -31,7 +31,8 @@ SubCategory.init({
     sequelize,
     modelName: 'SubCategory',
     tableName: 'subcategory',
-    timestamps: false,
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = SubCategory;

@@ -45,7 +45,8 @@ ShippingAdress.init({
     sequelize,
     modelName: 'ShippingAdress',
     tableName: 'shipping_adress',
-    timestamps: false,
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = ShippingAdress;

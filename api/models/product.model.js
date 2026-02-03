@@ -42,23 +42,14 @@ Product.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 1,
-    },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+    }
   },
   {
     sequelize,
     modelName: "Product",
     tableName: "product",
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 

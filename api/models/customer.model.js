@@ -28,17 +28,13 @@ Customer.init({
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
     }
 }, {
     sequelize,
     modelName: 'Customer',
     tableName: 'customer',
-    timestamps: false,
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = Customer;

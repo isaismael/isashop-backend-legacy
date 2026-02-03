@@ -22,7 +22,8 @@ Department.init({
     sequelize,
     modelName: 'Departament',
     tableName: 'departament',
-    timestamps: false,
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = Department;

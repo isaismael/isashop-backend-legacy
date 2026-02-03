@@ -29,8 +29,8 @@ RolePermissions.init({
     sequelize,
     modelName: 'RolePermissions',
     tableName: 'role_permissions',
-    timestamps: false,
-
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = RolePermissions;

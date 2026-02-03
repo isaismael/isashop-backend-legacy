@@ -31,7 +31,8 @@ ProductTag.init(
     sequelize,
     modelName: "PruductTag",
     tableName: "product_tag",
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 

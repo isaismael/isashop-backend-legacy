@@ -20,20 +20,13 @@ Permissions.init({
     is_active: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
-    },
-    created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
+    }
 }, {
     sequelize,
     modelName: 'Permissions',
     tableName: 'permissions',
-    timestamps: false,
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = Permissions;

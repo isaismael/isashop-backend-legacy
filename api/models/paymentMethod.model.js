@@ -23,7 +23,8 @@ PaymentMethod.init({
         sequelize,
         modelName: 'PaymentMethod',
         tableName: 'payment_method',
-        timestamps: false,
+        timestamps: true,
+        underscored: true
     })
 
 module.exports = PaymentMethod;

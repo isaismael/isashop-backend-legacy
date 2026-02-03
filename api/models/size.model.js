@@ -24,7 +24,8 @@ Size.init(
     sequelize,
     modelName: "Size",
     tableName: "size",
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 

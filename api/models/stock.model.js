@@ -55,7 +55,8 @@ Stock.init(
     sequelize,
     modelName: "Stock",
     tableName: "stock",
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 

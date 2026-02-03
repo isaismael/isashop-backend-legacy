@@ -45,7 +45,8 @@ OrderItem.init({
     sequelize,
     modelName: 'OrderItem',
     tableName: 'order_item',
-    timestamps: false,
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = OrderItem;

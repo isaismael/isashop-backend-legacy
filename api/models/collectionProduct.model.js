@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connect");
 
-class CollectionProduct extends Model {}
+class CollectionProduct extends Model { }
 
 CollectionProduct.init(
   {
@@ -31,7 +31,8 @@ CollectionProduct.init(
     sequelize,
     modelName: "CollectionProduct",
     tableName: "collection_product",
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 

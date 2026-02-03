@@ -27,7 +27,8 @@ Warehouse.init({
     sequelize,
     modelName: 'Warehouse',
     tableName: 'warehouse',
-    timestamps: false,
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = Warehouse;

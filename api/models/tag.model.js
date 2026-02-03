@@ -18,7 +18,8 @@ Tag.init({
     sequelize,
     modelName: 'Tag',
     tableName: 'tag',
-    timestamps: false,
+    timestamps: true,
+    underscored: true
 })
 
 module.exports = Tag;

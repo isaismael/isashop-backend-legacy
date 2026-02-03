@@ -24,7 +24,8 @@ Color.init(
     sequelize,
     modelName: "Color",
     tableName: "color",
-    timestamps: false,
+    timestamps: true,
+    underscored: true
   }
 );
 
