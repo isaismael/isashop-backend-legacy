@@ -10,6 +10,7 @@ const SubCategory = require('./subcategory.model');
 const Category = require('./category.model');
 const Department = require('./department.model');
 const Brand = require('./brand.model');
+const BrandImage = require('./brandImage.model')
 const ProductImage = require('./productImage.model');
 const Tag = require('./tag.model');
 const ProductTag = require('./productTag.model');
@@ -57,6 +58,17 @@ Permissions.belongsToMany(Role, {
   foreignKey: 'permission_id',
   otherKey: 'role_id',
   as: 'roles',
+});
+
+
+// -> brand - brandImage
+Brand.hasMany(BrandImage, {
+  foreignKey: 'brand_id',
+  as: 'images',
+});
+BrandImage.belongsTo(Brand, {
+  foreignKey: 'brand_id',
+  as: 'brand',
 });
 
 
@@ -338,6 +350,7 @@ module.exports = {
   Category,
   Department,
   Brand,
+  BrandImage,
   ProductImage,
   Tag,
   ProductTag,
