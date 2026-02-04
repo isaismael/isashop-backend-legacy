@@ -1,8 +1,8 @@
 const BandRepository = require('../repository/brand.repository');
 
 class BandController{
-    async getAllBrands() {
-        return await BandRepository.getAllBrands();
+    async getAllBrands(page = 1, limit = 10) {
+        return await BandRepository.getAllBrands(page, limit);
     }
 
     async getBrandById(id) {

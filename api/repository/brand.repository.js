@@ -1,8 +1,26 @@
-const Brand = require('../models/brand.model')
+const { Brand, BrandImage } = require('../models')
 
-class BandRepository{
-    async getAllBrands() {
-        return await Brand.findAll();
+class BandRepository {
+
+    async getAllBrands(page = 1, limit = 10) {
+        const offset = (page - 1) * limit;
+        const brands = await Brand.findAll({
+            offset,
+            limit,
+            include: [
+                { model: BrandImage, as: 'images' }
+            ]
+        });
+        const total = await Brand.count();
+        return {
+            data: brands,
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit)
+            }
+        }
     }
 
     async getBrandById(id) {

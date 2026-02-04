@@ -4,10 +4,10 @@ const { authenticateToken, authorizeRoles, authorizePermissions } = require('../
 
 const router = express.Router();
 
-router.post('/createproduct', authenticateToken, authorizeRoles('it'), ProductController.createProduct);
-router.get('/getproducts/:page/:limit', authenticateToken, authorizeRoles('it'), ProductController.getAllProducts);
-router.get('/getproduct/:id', authenticateToken, authorizeRoles('it'), ProductController.getProductById);
-router.put('/updateproduct/:id', authenticateToken, authorizeRoles('it'), ProductController.updateProduct);
-router.delete('/deleteproduct/:id', authenticateToken, authorizeRoles('it'), ProductController.deleteProduct);
+router.post('/createproduct', authenticateToken, authorizePermissions('product.create'), ProductController.createProduct);
+router.get('/getproducts/:page/:limit', authenticateToken, authorizePermissions('product.read'), ProductController.getAllProducts);
+router.get('/getproduct/:id', authenticateToken, authorizePermissions('product.read'), ProductController.getProductById);
+router.put('/updateproduct/:id', authenticateToken, authorizePermissions('product.update'), ProductController.updateProduct);
+router.delete('/deleteproduct/:id', authenticateToken, authorizePermissions('product.delete'), ProductController.deleteProduct);
 
 module.exports = router;

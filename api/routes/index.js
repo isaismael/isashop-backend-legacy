@@ -12,6 +12,7 @@ const SizeRoutes = require('./size.routes');
 const ProductImageRoutes = require('./productImage.routes');
 const WarehouseRoutes = require('./warehouse.routes');
 const StockRoutes = require('./stock.routes');
+const PermissionsRoutes = require('./permissions.routes');
 
 const router = express.Router();
 
@@ -29,5 +30,6 @@ router.use('/size', SizeRoutes);
 router.use('/productimage', ProductImageRoutes);
 router.use('/warehouse', WarehouseRoutes);
 router.use('/stock', StockRoutes);
+router.use('/permissions', PermissionsRoutes)
 
 module.exports = router;
