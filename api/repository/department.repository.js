@@ -1,8 +1,23 @@
-const Department = require('../models/department.model');
+const { Department, Category, SubCategory } = require('../models/index');
 
-class DepartmentRepository{
+class DepartmentRepository {
+
     async getAllDepartments() {
-        return await Department.findAll();
+        const departments = await Department.findAll({
+            include: [
+                {
+                    model: Category,
+                    as: 'categories',
+                    include: [
+                        {
+                            model: SubCategory,
+                            as: 'subcategories'
+                        }
+                    ]
+                }
+            ]
+        });
+        return departments;
     }
 
     async getDepartmentById(id) {
