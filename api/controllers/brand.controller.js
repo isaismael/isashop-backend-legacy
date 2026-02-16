@@ -6,7 +6,7 @@ class BrandController {
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 10;
 
-            const brands = await BrandService.getAllBrands(limit, page);
+            const brands = await BrandService.getAllBrands(page, limit);
             res.status(200).json(brands);
         } catch (error) {
             res.status(500).json({ error: error.message });

@@ -1,6 +1,6 @@
 const BandRepository = require('../repository/brand.repository');
 
-class BandController{
+class BandSerice{
     async getAllBrands(page = 1, limit = 10) {
         return await BandRepository.getAllBrands(page, limit);
     }
@@ -22,4 +22,4 @@ class BandController{
     }
 }
 
-module.exports = new BandController();
+module.exports = new BandSerice();

@@ -5,6 +5,7 @@ class BandRepository {
     async getAllBrands(page = 1, limit = 10) {
         const offset = (page - 1) * limit;
         const brands = await Brand.findAll({
+            where: { active: 1 },
             offset,
             limit,
             include: [

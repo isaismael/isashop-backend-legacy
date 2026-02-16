@@ -18,5 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 router.post('/createbrandImage', authenticateToken, authorizeRoles('IT'), upload.single('image'), BrandImageController.createBrandImage);
+router.get('/getbrandImage/:id', authenticateToken, authorizeRoles('IT'), BrandImageController.getBrandImageById);
+router.put('/updatebrandImage/:id', authenticateToken, authorizeRoles('IT'), upload.single('image'), BrandImageController.updateBrandImageById)
 
 module.exports = router;
