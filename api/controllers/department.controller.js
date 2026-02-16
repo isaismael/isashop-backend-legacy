@@ -1,12 +1,23 @@
 const DepartmentService = require('../services/department.service');
 
 class DepartmentController{
-    async getAllDepartments(req, res) {
+    async getDepartmentsPagination(req, res) {
+        try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const departments = await DepartmentService.getDepartmentsPagination(page, limit);
+            res.status(200).json(departments);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    async getAllDepartments(req, res){
         try {
             const departments = await DepartmentService.getAllDepartments();
             res.status(200).json(departments);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ error: error.message});
         }
     }
 

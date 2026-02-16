@@ -1,6 +1,7 @@
 const CategoryService = require("../services/category.service");
 
 class CategoryController {
+  
   async getAllCategories(req, res) {
     try {
       const categories = await CategoryService.getAllCategories();

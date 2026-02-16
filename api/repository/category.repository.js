@@ -1,6 +1,7 @@
 const { Category, Department, Subcategory } = require("../models");
 
 class CategoryRepository {
+  
   async getAllCategories() {
     return await Category.findAll({
       include: [

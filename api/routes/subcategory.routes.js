@@ -4,7 +4,7 @@ const { authenticateToken, authorizeRoles, authorizePermissions } = require('../
 
 const router = express.Router();
 
-router.post('/createsubcategory', authenticateToken, authorizeRoles('it'), SubcategoryController.createSubCategory);
-router.get('/getsubcategories', authenticateToken, authorizeRoles('it'), SubcategoryController.getAllSubCategories);
+router.post('/createsubcategory', authenticateToken, authorizeRoles('IT'), SubcategoryController.createSubCategory);
+router.get('/getsubcategories', authenticateToken, authorizeRoles('IT'), SubcategoryController.getAllSubCategories);
 
 module.exports = router;

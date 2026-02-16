@@ -1,7 +1,11 @@
 const DepartmentRepository = require('../repository/department.repository');
 
 class DepartmentService{
-    async getAllDepartments() {
+    async getDepartmentsPagination(page = 1, limit = 10) {
+        return await DepartmentRepository.getDepartmentsPagination(page, limit);
+    }
+
+    async getAllDepartments(){
         return await DepartmentRepository.getAllDepartments();
     }
 
