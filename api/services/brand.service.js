@@ -5,6 +5,10 @@ class BandSerice{
         return await BandRepository.getAllBrands(page, limit);
     }
 
+    async getBrands(){
+        return await BandRepository.getBrands();
+    }
+
     async getBrandById(id) {
         return await BandRepository.getBrandById(id);
     }

@@ -24,6 +24,15 @@ class BandRepository {
         }
     }
 
+    async getBrands(){
+        return await Brand.findAll({
+            where: { active: 1 },
+            include: [
+                { model: BrandImage, as: 'images' }
+            ]
+        });
+    }
+
     async getBrandById(id) {
         return await Brand.findByPk(id);
     }
