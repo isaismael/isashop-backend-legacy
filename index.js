@@ -23,7 +23,7 @@ class Server {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
         }));
-        this.app.use("/uploads", express.static("api/uploads"));
+        this.app.use("/api/uploads", express.static("api/uploads"));
     }
 
     routes() {
