@@ -1,6 +1,10 @@
 const SizeRepository = require('../repository/size.repository');
 
 class SizeService{
+    async getSizes(page, limit) {
+        return await SizeRepository.getSizes(page, limit);
+    }
+
     async getAllSizes() {
         return await SizeRepository.getAllSizes();
     }

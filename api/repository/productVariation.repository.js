@@ -4,7 +4,8 @@ const { ProductVariation, Product, ProductImage, Color, Size, Stock } = require(
 class ProductVariationRepository {
     async getAllProductVariations(product_id) {
 
-    const whereClause = { active: 1 };
+    // const whereClause = { active: 1 };
+    let whereClause = {};
 
     if (product_id) {
         whereClause.product_id = product_id;

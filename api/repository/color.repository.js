@@ -5,6 +5,24 @@ class ColorRepository{
         return await Color.findAll();
     }
 
+    async getColors(page = 1, limit = 10) {
+        const offset = (page - 1) * limit;
+        const colors = await Color.findAll({
+            offset,
+            limit,
+        });
+        const total = await Color.count();
+        return {
+            data: colors,
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit)
+            }
+        }
+    }
+
     async getColorById(id) {
         return await Color.findByPk(id);
     }

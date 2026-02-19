@@ -1,7 +1,19 @@
 const SizeService = require('../services/size.service');
 
 class SizeController{
-    async getAllSizes(req, res) {
+
+    async getSizes(req, res) {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        try {
+            const sizes = await SizeService.getSizes(page, limit);
+            res.status(200).json(sizes);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    async getAllSizes(req, res){
         try {
             const sizes = await SizeService.getAllSizes();
             res.status(200).json(sizes);

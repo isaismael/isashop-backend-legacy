@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connect");
 
-class Color extends Model { }
+class Color extends Model {}
 
 Color.init(
   {
@@ -14,10 +14,14 @@ Color.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    active: {
-      type: DataTypes.INTEGER,
+    hex: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 1,
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
     },
   },
   {
@@ -25,8 +29,8 @@ Color.init(
     modelName: "Color",
     tableName: "color",
     timestamps: true,
-    underscored: true
-  }
+    underscored: true,
+  },
 );
 
 module.exports = Color;

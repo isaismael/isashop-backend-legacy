@@ -4,10 +4,13 @@ const { authenticateToken, authorizeRoles, authorizePermissions } = require('../
 
 const router = express.Router();
 
-router.post('/createcolor', authenticateToken, authorizeRoles('it'), ColorController.createColor);
-router.get('/getcolors', authenticateToken, authorizeRoles('it'), ColorController.getAllColors);
-router.get('/getcolor/:id', authenticateToken, authorizeRoles('it'), ColorController.getColorById);
-router.put('/updatecolor/:id', authenticateToken, authorizeRoles('it'), ColorController.updateColor);
-router.delete('/deletecolor/:id', authenticateToken, authorizeRoles('it'), ColorController.deleteColor);
+router.post('/createcolor', authenticateToken, authorizePermissions('product.create'), ColorController.createColor);
+// -> sin paginacion
+router.get('/getcolors', authenticateToken, authorizePermissions('product.create'), ColorController.getAllColors);
+// -> con paginacion
+router.get('/getcolors/paginated/:page/:limit', authenticateToken, authorizePermissions('product.create'), ColorController.getColors);
+router.get('/getcolor/:id', authenticateToken, authorizePermissions('product.create'), ColorController.getColorById);
+router.put('/updatecolor/:id', authenticateToken, authorizePermissions('product.create'), ColorController.updateColor);
+router.delete('/deletecolor/:id', authenticateToken, authorizePermissions('product.create'), ColorController.deleteColor);
 
 module.exports = router;

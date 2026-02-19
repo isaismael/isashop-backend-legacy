@@ -5,6 +5,10 @@ class ColorService{
         return await ColorRepository.getAllColors();
     }
 
+    async getColors(page = 1, limit = 10) {
+        return await ColorRepository.getColors(page, limit);
+    }
+
     async getColorById(id) {
         return await ColorRepository.getColorById(id);
     }

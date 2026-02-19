@@ -18,7 +18,8 @@ class ProductRepository {
     orderDir = 'DESC'
   }) {
     const offset = (page - 1) * limit;
-    const where = {active: 1};
+    // const where = {active: 1};
+    let where = {};
     if(search){
       where[Op.or] = [
         {name: {[Op.like]: `%${search}%`}},
