@@ -12,7 +12,7 @@ ProductVariation.init(
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     sku_variation: {
       type: DataTypes.STRING,
@@ -48,7 +48,7 @@ ProductVariation.init(
     },
     current_price: {
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
+      allowNull: true,
     },
     discount: {
       type: DataTypes.INTEGER,

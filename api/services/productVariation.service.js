@@ -1,9 +1,10 @@
 const ProductVariationRepository = require('../repository/productVariation.repository');
 
-class ProductVariationService{
-    async getAllProductVariations() {
-        return await ProductVariationRepository.getAllProductVariations();
+class ProductVariationService {
+    async getAllProductVariations(product_id) {
+        return await ProductVariationRepository.getAllProductVariations(product_id);
     }
+
 
     async getProductVariationById(id) {
         return await ProductVariationRepository.getProductVariationById(id);
