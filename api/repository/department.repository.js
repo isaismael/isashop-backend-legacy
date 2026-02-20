@@ -35,7 +35,7 @@ class DepartmentRepository {
   async getAllDepartments() {
     return await Department.findAll({
       where: { active: 1 },
-      nclude: [
+      include: [
         {
           model: Category,
           as: "categories",

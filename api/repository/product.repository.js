@@ -5,6 +5,8 @@ const {
   ProductImage,
   Brand,
   SubCategory,
+  Category,
+  Department,
 } = require("../models");
 
 class ProductRepository {
@@ -12,55 +14,100 @@ class ProductRepository {
     page = 1,
     limit = 10,
     search = "",
+    departmentId = null,
     categoryId = null,
+    subcategoryId = null,
     brand_id = null,
-    orderBy = 'createdAt',
-    orderDir = 'DESC'
+    orderBy = "createdAt",
+    orderDir = "DESC",
   }) {
     const offset = (page - 1) * limit;
-    // const where = {active: 1};
-    let where = {};
-    if(search){
+
+    let where = {
+      active: 1,
+    };
+
+    if (search) {
       where[Op.or] = [
-        {name: {[Op.like]: `%${search}%`}},
-        {product_sku: {[Op.like]: `%${search}%`}},
-        {id: isNaN(search) ? null : Number(search)}
+        { name: { [Op.like]: `%${search}%` } },
+        { product_sku: { [Op.like]: `%${search}%` } },
+        !isNaN(search) ? { id: Number(search) } : null,
       ].filter(Boolean);
     }
-    if(categoryId){
-      where.subcategory_id = categoryId;
-    }
-    if(brand_id){
+
+    if (brand_id) {
       where.brand_id = brand_id;
     }
-    const {rows: products, count: total} = await Product.findAndCountAll({
-      where,
-      include: [
-        { model: Brand, as: "brand" },
-        { model: SubCategory, as: "subcategory" },
-        { model: ProductVariation, as: "product_variations" },
-        { model: ProductImage, as: "product_images" },
-      ],
-      offset,
-      limit,
-      order: [[orderBy, orderDir]],
-    })
+
+    const { rows: products, count: total } =
+      await Product.findAndCountAll({
+        distinct: true, // 🔥 evita duplicados por joins
+        where,
+        include: [
+          { model: Brand, as: "brand" },
+          {
+            model: SubCategory,
+            as: "subcategory",
+            required: true,
+            where: subcategoryId ? { id: subcategoryId } : undefined,
+            include: [
+              {
+                model: Category,
+                as: "category",
+                required: categoryId || departmentId ? true : false,
+                where: categoryId ? { id: categoryId } : undefined,
+                include: [
+                  {
+                    model: Department,
+                    as: "department",
+                    required: departmentId ? true : false,
+                    where: departmentId ? { id: departmentId } : undefined,
+                  },
+                ],
+              },
+            ],
+          },
+          { model: ProductVariation, as: "product_variations" },
+          { model: ProductImage, as: "product_images" },
+        ],
+        offset,
+        limit,
+        order: [[orderBy, orderDir]],
+      });
+
     return {
       data: products,
       pagination: {
         total,
         page,
         limit,
-        totalPages: Math.ceil(total / limit)
-      }
-    }
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   async getProductById(id) {
     const product = await Product.findByPk(id, {
       include: [
         { model: Brand, as: "brand" },
-        { model: SubCategory, as: "subcategory" },
+        {
+          model: SubCategory,
+          as: "subcategory",
+          include: [
+            {
+              model: Category,
+              as: "category",
+              include: [
+                {
+                  model: Department,
+                  as: "department",
+                },
+              ],
+            },
+          ],
+        },
+        { model: ProductVariation, as: "product_variations" },
+        { model: ProductImage, as: "product_images" },
       ],
     });
 
