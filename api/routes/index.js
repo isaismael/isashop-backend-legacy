@@ -13,6 +13,9 @@ const ProductImageRoutes = require('./productImage.routes');
 const WarehouseRoutes = require('./warehouse.routes');
 const StockRoutes = require('./stock.routes');
 const PermissionsRoutes = require('./permissions.routes');
+//-> store frontend
+const CustomerRoutes = require('./customer.routes');
+const CartRoutes = require('./cart.routes');
 
 const router = express.Router();
 
@@ -31,5 +34,9 @@ router.use('/productimage', ProductImageRoutes);
 router.use('/warehouse', WarehouseRoutes);
 router.use('/stock', StockRoutes);
 router.use('/permissions', PermissionsRoutes)
+
+//-> store frontend
+router.use('/customer', CustomerRoutes);
+router.use('/cart', CartRoutes);
 
 module.exports = router;

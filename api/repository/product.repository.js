@@ -10,6 +10,7 @@ const {
 } = require("../models");
 
 class ProductRepository {
+
   async getAllProducts({
     page = 1,
     limit = 10,
@@ -23,9 +24,7 @@ class ProductRepository {
   }) {
     const offset = (page - 1) * limit;
 
-    let where = {
-      active: 1,
-    };
+    let where = {};
 
     if (search) {
       where[Op.or] = [
@@ -86,6 +85,83 @@ class ProductRepository {
     };
   }
 
+  async getAllProductsPublic({
+    page = 1,
+    limit = 10,
+    search = "",
+    departmentId = null,
+    categoryId = null,
+    subcategoryId = null,
+    brand_id = null,
+    orderBy = "createdAt",
+    orderDir = "DESC",
+  }) {
+    const offset = (page - 1) * limit;
+    let where = { active: 1 };
+
+    if (search) {
+      where[Op.or] = [
+        { name: { [Op.like]: `%${search}%` } },
+        { product_sku: { [Op.like]: `%${search}%` } },
+        !isNaN(search) ? { id: Number(search) } : null,
+      ].filter(Boolean);
+    }
+
+    if (brand_id) {
+      where.brand_id = brand_id;
+    }
+
+    const { rows: products, count: total } = await Product.findAndCountAll({
+      distinct: true,
+      where,
+      include: [
+        { model: Brand, as: "brand" },
+        {
+          model: SubCategory,
+          as: "subcategory",
+          required: true,
+          where: subcategoryId ? { id: subcategoryId } : undefined,
+          include: [
+            {
+              model: Category,
+              as: "category",
+              required: categoryId || departmentId ? true : false,
+              where: categoryId ? { id: categoryId } : undefined,
+              include: [
+                {
+                  model: Department,
+                  as: "department",
+                  required: departmentId ? true : false,
+                  where: departmentId ? { id: departmentId } : undefined,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: ProductVariation,
+          as: "product_variations",
+          required: true,       // solo productos con al menos 1 variante activa
+          where: { active: 1 }, // filtra variantes inactivas
+        },
+        { model: ProductImage, as: "product_images" },
+      ],
+      offset,
+      limit,
+      order: [[orderBy, orderDir]],
+    });
+
+    return {
+      data: products,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  }
+
   async getProductById(id) {
     const product = await Product.findByPk(id, {
       include: [
@@ -114,6 +190,40 @@ class ProductRepository {
     if (!product) throw new Error("Product not found");
     return product;
   }
+
+
+  async getProductByIdPublic(id) {
+    const product = await Product.findByPk(id, {
+      include: [
+        { model: Brand, as: "brand" },
+        {
+          model: SubCategory,
+          as: "subcategory",
+          include: [
+            {
+              model: Category,
+              as: "category",
+              include: [{ model: Department, as: "department" }],
+            },
+          ],
+        },
+        { 
+          model: ProductVariation, 
+          as: "product_variations",
+          where: { active: 1 },  // ← agregado
+          required: false,
+        },
+        { 
+          model: ProductImage, 
+          as: "product_images",
+          where: { active: 1 },  // ← agregado
+          required: false,
+        },
+      ],
+    });
+    if (!product) throw new Error("Product not found");
+    return product;
+}
 
   async createProduct(product) {
     return await Product.create(product);

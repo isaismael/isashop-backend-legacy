@@ -45,12 +45,12 @@ router.delete(
 // -> rutas publicas para el store
 router.get(
   "/public/getproducts",
-  ProductController.getAllProducts
+  ProductController.getAllProductsPublic
 );
 
 router.get(
   "/public/getproduct/:id",
-  ProductController.getProductById
+  ProductController.getProductByIdPublic
 );
 
 module.exports = router;
