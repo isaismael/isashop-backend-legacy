@@ -4,10 +4,13 @@ const { authenticateToken, authorizeRoles, authorizePermissions } = require('../
 
 const router = express.Router();
 
-router.post('/createstock', authenticateToken, authorizeRoles('it'), StockController.createStock);
-router.get('/getstocks', authenticateToken, authorizeRoles('it'), StockController.getAllStocks);
-router.get('/getstock/:id', authenticateToken, authorizeRoles('it'), StockController.getStockById);
-router.get('/updatestock/:id', authenticateToken, authorizeRoles('it'), StockController.updateStock);
-router.delete('/deletestock/:id', authenticateToken, authorizeRoles('it'), StockController.deleteStock);
+router.post('/createstock', authenticateToken, authorizeRoles('IT'), StockController.createStock);
+// -> sin paginacion
+router.get('/getallstocks', authenticateToken, authorizeRoles('IT'), StockController.getAllStocks);
+// -> con paginacion
+router.get('/getstocks', authenticateToken, authorizeRoles('IT'), StockController.getStocks)
+router.get('/getstockbyid/:id', authenticateToken, authorizeRoles('IT'), StockController.getStockById);
+router.put('/updatestock/:id', authenticateToken, authorizeRoles('IT'), StockController.updateStock);
+router.delete('/deletestock/:id', authenticateToken, authorizeRoles('IT'), StockController.deleteStock);
 
 module.exports = router;

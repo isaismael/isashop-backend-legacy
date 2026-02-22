@@ -7,10 +7,10 @@ const {
   SubCategory,
   Category,
   Department,
+  Stock,
 } = require("../models");
 
 class ProductRepository {
-
   async getAllProducts({
     page = 1,
     limit = 10,
@@ -38,41 +38,49 @@ class ProductRepository {
       where.brand_id = brand_id;
     }
 
-    const { rows: products, count: total } =
-      await Product.findAndCountAll({
-        distinct: true, // 🔥 evita duplicados por joins
-        where,
-        include: [
-          { model: Brand, as: "brand" },
-          {
-            model: SubCategory,
-            as: "subcategory",
-            required: true,
-            where: subcategoryId ? { id: subcategoryId } : undefined,
-            include: [
-              {
-                model: Category,
-                as: "category",
-                required: categoryId || departmentId ? true : false,
-                where: categoryId ? { id: categoryId } : undefined,
-                include: [
-                  {
-                    model: Department,
-                    as: "department",
-                    required: departmentId ? true : false,
-                    where: departmentId ? { id: departmentId } : undefined,
-                  },
-                ],
-              },
-            ],
-          },
-          { model: ProductVariation, as: "product_variations" },
-          { model: ProductImage, as: "product_images" },
-        ],
-        offset,
-        limit,
-        order: [[orderBy, orderDir]],
-      });
+    const { rows: products, count: total } = await Product.findAndCountAll({
+      distinct: true, // 🔥 evita duplicados por joins
+      where,
+      include: [
+        { model: Brand, as: "brand" },
+        {
+          model: SubCategory,
+          as: "subcategory",
+          required: true,
+          where: subcategoryId ? { id: subcategoryId } : undefined,
+          include: [
+            {
+              model: Category,
+              as: "category",
+              required: categoryId || departmentId ? true : false,
+              where: categoryId ? { id: categoryId } : undefined,
+              include: [
+                {
+                  model: Department,
+                  as: "department",
+                  required: departmentId ? true : false,
+                  where: departmentId ? { id: departmentId } : undefined,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: ProductVariation,
+          as: "product_variations",
+          include: [
+            {
+              model: Stock,
+              as: "stocks",
+            },
+          ],
+        },
+        { model: ProductImage, as: "product_images" },
+      ],
+      offset,
+      limit,
+      order: [[orderBy, orderDir]],
+    });
 
     return {
       data: products,
@@ -141,8 +149,23 @@ class ProductRepository {
         {
           model: ProductVariation,
           as: "product_variations",
-          required: true,       // solo productos con al menos 1 variante activa
-          where: { active: 1 }, // filtra variantes inactivas
+          // obliga a que exista al menos 1 variante válida
+          required: true, 
+          where: { active: 1 },
+          include: [
+            {
+              model: Stock,
+              as: "stocks",
+              // obliga a que exista stock
+              required: true, 
+              // 👈 solo stock mayor a 0 || nota great that es gt
+              where: {
+                quantity: {
+                  [Op.gt]: 0, 
+                },
+              },
+            },
+          ],
         },
         { model: ProductImage, as: "product_images" },
       ],
@@ -191,7 +214,6 @@ class ProductRepository {
     return product;
   }
 
-
   async getProductByIdPublic(id) {
     const product = await Product.findByPk(id, {
       include: [
@@ -207,23 +229,38 @@ class ProductRepository {
             },
           ],
         },
-        { 
-          model: ProductVariation, 
+        {
+          model: ProductVariation,
           as: "product_variations",
-          where: { active: 1 },  // ← agregado
-          required: false,
+          // obliga a que exista al menos 1 variante válida
+          required: true, 
+          where: { active: 1 },
+          include: [
+            {
+              model: Stock,
+              as: "stocks",
+              // obliga a que exista stock
+              required: true, 
+              // 👈 solo stock mayor a 0 || nota great that es gt
+              where: {
+                quantity: {
+                  [Op.gt]: 0, 
+                },
+              },
+            },
+          ],
         },
-        { 
-          model: ProductImage, 
+        {
+          model: ProductImage,
           as: "product_images",
-          where: { active: 1 },  // ← agregado
+          where: { active: 1 }, // ← agregado
           required: false,
         },
       ],
     });
     if (!product) throw new Error("Product not found");
     return product;
-}
+  }
 
   async createProduct(product) {
     return await Product.create(product);

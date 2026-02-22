@@ -27,6 +27,8 @@ const OrderItem = require('./orderItem.model');
 const PaymentMethod = require('./paymentMethod.model');
 const Cart = require('./cart.model');
 const CartItem = require('./cartItem.model');
+const Province = require('./province.model');
+const ShippingCost = require('./shippingCost.model');
 
 
 // -> user - role
@@ -336,7 +338,15 @@ ProductVariation.hasMany(CartItem, {
   as: 'cart_items',
 });
 
-
+// -> entre provincia y costo de envio
+ShippingCost.belongsTo(Province, {
+  foreignKey: 'province_id',
+  as: 'province',
+});
+Province.hasMany(ShippingCost, {
+  foreignKey: 'province_id',
+  as: 'shipping_costs',
+});
 
 module.exports = {
   User,
@@ -366,5 +376,7 @@ module.exports = {
   OrderItem,
   PaymentMethod,
   Cart,
-  CartItem
+  CartItem,
+  Province,
+  ShippingCost
 };
