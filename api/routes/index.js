@@ -14,7 +14,7 @@ const WarehouseRoutes = require('./warehouse.routes');
 const StockRoutes = require('./stock.routes');
 const PermissionsRoutes = require('./permissions.routes');
 const ProvinceRoutes = require('./province.routes');
-//const ShippingCostRoutes = require('./shippingCost.routes');
+const ShippingCostRoutes = require('./shippingCost.routes');
 
 //-> store frontend
 const CustomerRoutes = require('./customer.routes');
@@ -38,7 +38,7 @@ router.use('/warehouse', WarehouseRoutes);
 router.use('/stock', StockRoutes);
 router.use('/permissions', PermissionsRoutes)
 router.use('/province', ProvinceRoutes);
-//router.use('/shippingcost', ShippingCostRoutes);
+router.use('/shippingcost', ShippingCostRoutes);
 
 
 //-> store frontend
