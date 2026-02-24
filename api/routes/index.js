@@ -17,6 +17,7 @@ const ProvinceRoutes = require('./province.routes');
 const ShippingCostRoutes = require('./shippingCost.routes');
 const ShippingAddresRoutes = require('./shippingAddres.routes');
 const OrderRoutes = require('./order.routes');
+const PaymentMethodRoutes = require('./payment.routes');
 
 //-> store frontend
 const CustomerRoutes = require('./customer.routes');
@@ -46,6 +47,7 @@ router.use('/province', ProvinceRoutes);
 router.use('/shippingcost', ShippingCostRoutes);
 router.use('/shippingaddres', ShippingAddresRoutes);
 router.use('/order', OrderRoutes);
+router.use('/paymentmethod', PaymentMethodRoutes);
 
 //-> store frontend
 router.use('/customer', CustomerRoutes);
