@@ -4,7 +4,6 @@ const { MercadoPagoConfig, Preference } = require("mercadopago");
 dotenv.config();
 
 const router = express.Router();
-
 const client = new MercadoPagoConfig({
   accessToken: process.env.YOUR_ACCESS_TOKEN,
 });
@@ -12,20 +11,18 @@ const client = new MercadoPagoConfig({
 router.post("/create-preference", async (req, res) => {
   try {
     const { items } = req.body;
-
     const preference = new Preference(client);
     const response = await preference.create({
       body: {
         items: items,
         back_urls: {
-          success: "http://localhost:5174/checkout/success",
-          failure: "http://localhost:5174/checkout/failure",
-          pending: "http://localhost:5174/checkout/pending",
+          success: `${process.env.FRONTEND_URL}/checkout/success`,
+          failure: `${process.env.FRONTEND_URL}/checkout/failure`,
+          pending: `${process.env.FRONTEND_URL}/checkout/pending`,
         },
         auto_return: "approved",
       },
     });
-
     res.status(200).json({
       preference_id: response.id,
       preference_url: response.init_point,

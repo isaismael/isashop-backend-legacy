@@ -22,6 +22,7 @@ const Collections = require("./collections.model");
 const CollectionProduct = require("./collectionProduct.model");
 const Customer = require("./customer.model");
 const ShippingAdress = require("./shippingAdress.model");
+const PickupAddress = require("./pickupAddress.model");
 const Order = require("./order.model");
 const OrderItem = require("./orderItem.model");
 const PaymentMethod = require("./paymentMethod.model");
@@ -338,6 +339,16 @@ Province.hasMany(ShippingAdress, {
   as: "shipping_addresses",
 });
 
+// -> order con pickupaddress
+Order.belongsTo(PickupAddress, {
+  foreignKey: 'pickup_address_id',
+  as: 'pickup_address',
+});
+PickupAddress.hasMany(Order, {
+  foreignKey: 'pickup_address_id',
+  as: 'orders',
+});
+
 module.exports = {
   User,
   Role,
@@ -362,6 +373,7 @@ module.exports = {
   Collections,
   Customer,
   ShippingAdress,
+  PickupAddress,
   Order,
   OrderItem,
   PaymentMethod,

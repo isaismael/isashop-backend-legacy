@@ -1,4 +1,4 @@
-const ShippingAdressService = require("../services/shippingAddres.services");
+const ShippingAdressService = require("../services/shippingAddres.service");
 
 class ShippingAdressController {
   async createShippingAdress(req, res) {

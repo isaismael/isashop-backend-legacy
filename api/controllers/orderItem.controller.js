@@ -1,6 +1,6 @@
 const OrderItemService = require("../services/orderItem.service");
 
-class OrderItemService {
+class OrderItemController {
   // crear un order item
   async createOrderItem(orderItem) {
     return await OrderItemService.createOrderItem(orderItem);
@@ -57,4 +57,4 @@ class OrderItemService {
   }
 }
 
-module.exports = new OrderItemService();
+module.exports = new OrderItemController();
