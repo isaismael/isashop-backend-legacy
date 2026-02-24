@@ -1,10 +1,16 @@
-const { Cart, CartItem, ProductVariation, Product, Color, Size } = require("../models");
+const {
+  Cart,
+  CartItem,
+  ProductVariation,
+  Product,
+  Color,
+  Size,
+} = require("../models");
 
 class CartRepository {
-
   async findByCustomerId(customerId) {
     return await Cart.findOne({
-      where: { customer_id: customerId },
+      where: { customer_id: customerId, is_active: 1 },
       include: [
         {
           model: CartItem,
@@ -29,6 +35,12 @@ class CartRepository {
     return await Cart.create({ customer_id: customerId });
   }
 
+  async deactivateByCustomerId(customerId) {
+    return await Cart.update(
+      { is_active: 0 },
+      { where: { customer_id: customerId, is_active: 1 } },
+    );
+  }
 }
 
 module.exports = new CartRepository();

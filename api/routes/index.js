@@ -15,10 +15,15 @@ const StockRoutes = require('./stock.routes');
 const PermissionsRoutes = require('./permissions.routes');
 const ProvinceRoutes = require('./province.routes');
 const ShippingCostRoutes = require('./shippingCost.routes');
+const ShippingAddresRoutes = require('./shippingAddres.routes');
+const OrderRoutes = require('./order.routes');
 
 //-> store frontend
 const CustomerRoutes = require('./customer.routes');
 const CartRoutes = require('./cart.routes');
+
+// -> mercadopago
+const PreferenceRoutes = require('./preference.routes');
 
 const router = express.Router();
 
@@ -39,10 +44,14 @@ router.use('/stock', StockRoutes);
 router.use('/permissions', PermissionsRoutes)
 router.use('/province', ProvinceRoutes);
 router.use('/shippingcost', ShippingCostRoutes);
-
+router.use('/shippingaddres', ShippingAddresRoutes);
+router.use('/order', OrderRoutes);
 
 //-> store frontend
 router.use('/customer', CustomerRoutes);
 router.use('/cart', CartRoutes);
+
+// -> mercadopago
+router.use('/preference', PreferenceRoutes);
 
 module.exports = router;

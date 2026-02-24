@@ -57,6 +57,10 @@ class CartService {
 
     return await cartItemRepository.deleteItem(item.id);
   }
+
+  async deactivateCart(customerId) {
+    return await cartRepository.deactivateByCustomerId(customerId);
+  }
 }
 
 module.exports = new CartService();

@@ -1,7 +1,6 @@
 const cartService = require("../services/cart.service");
 
 class CartController {
-
   async getCart(req, res) {
     try {
       const customerId = req.user.sub;
@@ -24,7 +23,7 @@ class CartController {
       const result = await cartService.addItem(
         customerId,
         product_variation_id,
-        quantity
+        quantity,
       );
 
       res.status(201).json(result);
@@ -41,7 +40,7 @@ class CartController {
       const result = await cartService.updateItem(
         customerId,
         product_variation_id,
-        quantity
+        quantity,
       );
 
       res.json(result);
@@ -60,6 +59,16 @@ class CartController {
       res.json({ message: "Item eliminado" });
     } catch (error) {
       res.status(400).json({ message: error.message });
+    }
+  }
+
+  async deactivateCart(req, res) {
+    try {
+      const { customer_id } = req.params;
+      await cartService.deactivateCart(customer_id);
+      res.status(200).json({ message: "Carrito desactivado" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
   }
 }

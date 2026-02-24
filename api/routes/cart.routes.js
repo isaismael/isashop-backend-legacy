@@ -11,5 +11,6 @@ router.get("/", CartController.getCart);
 router.post("/item", CartController.addItem);
 router.put("/item", CartController.updateItem);
 router.delete("/item/:product_variation_id", CartController.removeItem);
+router.put("/deactivate/:customer_id", CartController.deactivateCart);
 
 module.exports = router;
