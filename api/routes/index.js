@@ -24,6 +24,10 @@ const PaymentMethodRoutes = require('./payment.routes');
 //-> store frontend
 const CustomerRoutes = require('./customer.routes');
 const CartRoutes = require('./cart.routes');
+const BannerRoutes = require('./banner.routes');
+const CategoryBubblesRoutes = require('./categoryBubbles.routes');
+const CollectionRoutes = require('./collection.routes');
+const ProductGridRoutes = require('./productGrid.routes');
 
 // -> mercadopago
 const PreferenceRoutes = require('./preference.routes');
@@ -56,6 +60,10 @@ router.use('/paymentmethod', PaymentMethodRoutes);
 //-> store frontend
 router.use('/customer', CustomerRoutes);
 router.use('/cart', CartRoutes);
+router.use('/banner', BannerRoutes);
+router.use('/categorybubbles', CategoryBubblesRoutes);
+router.use('/collection', CollectionRoutes);
+router.use('/productgrid', ProductGridRoutes);
 
 // -> mercadopago
 router.use('/preference', PreferenceRoutes);

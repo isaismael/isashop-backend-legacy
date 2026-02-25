@@ -1,39 +1,40 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connect");
 
-class CollectionProduct extends Model {}
+class ProductGrid extends Model {}
 
-CollectionProduct.init(
+ProductGrid.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     collection_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "collections",
-        key: "id",
-      },
     },
-    product_id: {
+    active: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "products",
-        key: "id",
-      },
+      defaultValue: 1,
     },
   },
   {
     sequelize,
-    modelName: "CollectionProduct",
-    tableName: "collection_product",
+    modelName: "ProductGrid",
+    tableName: "product_grid",
     timestamps: true,
     underscored: true,
-  }
+  },
 );
 
-module.exports = CollectionProduct;
+module.exports = ProductGrid;

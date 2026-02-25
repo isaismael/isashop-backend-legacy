@@ -30,6 +30,10 @@ const Cart = require("./cart.model");
 const CartItem = require("./cartItem.model");
 const Province = require("./province.model");
 const ShippingCost = require("./shippingCost.model");
+// -> store front
+const Banner = require("./banner.model");
+const CategoryBubbles = require("./categorybubbles.model");
+const ProductGrid = require("./productGrid.model");
 
 // -> user - role
 User.belongsToMany(Role, {
@@ -197,24 +201,20 @@ ProductVariation.hasMany(Stock, {
   as: "stocks",
 });
 
-// -> collection_product - collections
-CollectionProduct.belongsTo(Collections, {
+
+// -> collections - products (N:N)
+Collections.belongsToMany(Product, {
+  through: CollectionProduct,
   foreignKey: "collection_id",
-  as: "collection",
-});
-Collections.hasMany(CollectionProduct, {
-  foreignKey: "collection_id",
-  as: "collections",
+  otherKey: "product_id",
+  as: "products",
 });
 
-// -> collection_product - product_varation
-CollectionProduct.belongsTo(ProductVariation, {
-  foreignKey: "product_variation_id",
-  as: "product_variation",
-});
-ProductVariation.hasMany(CollectionProduct, {
-  foreignKey: "product_variation_id",
-  as: "product_variations",
+Product.belongsToMany(Collections, {
+  through: CollectionProduct,
+  foreignKey: "product_id",
+  otherKey: "collection_id",
+  as: "collections",
 });
 
 // -> shipping_address - customer
@@ -341,12 +341,12 @@ Province.hasMany(ShippingAdress, {
 
 // -> order con pickupaddress
 Order.belongsTo(PickupAddress, {
-  foreignKey: 'pickup_address_id',
-  as: 'pickup_address',
+  foreignKey: "pickup_address_id",
+  as: "pickup_address",
 });
 PickupAddress.hasMany(Order, {
-  foreignKey: 'pickup_address_id',
-  as: 'orders',
+  foreignKey: "pickup_address_id",
+  as: "orders",
 });
 
 module.exports = {
@@ -381,4 +381,7 @@ module.exports = {
   CartItem,
   Province,
   ShippingCost,
+  Banner,
+  CategoryBubbles,
+  ProductGrid
 };
