@@ -27,6 +27,10 @@ class OrderService{
   return await OrderRepository.createOrderWithItems(data);
 }
 
+async getOrdersByCustomer(customer_id) {
+  return await OrderRepository.getOrdersByCustomer(customer_id);
+}
+
 }
 
 module.exports = new OrderService();

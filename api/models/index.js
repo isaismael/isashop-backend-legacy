@@ -34,6 +34,7 @@ const ShippingCost = require("./shippingCost.model");
 const Banner = require("./banner.model");
 const CategoryBubbles = require("./categorybubbles.model");
 const ProductGrid = require("./productGrid.model");
+const PromoBanner = require("./PromoBanner.model");
 
 // -> user - role
 User.belongsToMany(Role, {
@@ -383,5 +384,6 @@ module.exports = {
   ShippingCost,
   Banner,
   CategoryBubbles,
-  ProductGrid
+  ProductGrid,
+  PromoBanner
 };

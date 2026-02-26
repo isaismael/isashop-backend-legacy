@@ -17,4 +17,7 @@ router.get('/public/getorders/', OrderController.getAllOrders);
 // ruta publica porque viene del redirect de MP sin token
 router.post('/createorderwithitems', OrderController.createOrderWithItems);
 
+// El cliente ve solo sus propias órdenes
+router.get('/my-orders/:customer_id', authenticateToken, OrderController.getOrdersByCustomer);
+
 module.exports = router;

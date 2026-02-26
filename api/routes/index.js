@@ -28,9 +28,13 @@ const BannerRoutes = require('./banner.routes');
 const CategoryBubblesRoutes = require('./categoryBubbles.routes');
 const CollectionRoutes = require('./collection.routes');
 const ProductGridRoutes = require('./productGrid.routes');
+const PromoBannerRoutes = require('./promoBanner.routes');
 
 // -> mercadopago
 const PreferenceRoutes = require('./preference.routes');
+
+// admin
+const AdminRoutes = require('./rbac.routes');
 
 const router = express.Router();
 
@@ -64,8 +68,12 @@ router.use('/banner', BannerRoutes);
 router.use('/categorybubbles', CategoryBubblesRoutes);
 router.use('/collection', CollectionRoutes);
 router.use('/productgrid', ProductGridRoutes);
+router.use('/promobanner', PromoBannerRoutes);
 
 // -> mercadopago
 router.use('/preference', PreferenceRoutes);
+
+// admin
+router.use('/admin', AdminRoutes);
 
 module.exports = router;
