@@ -62,10 +62,14 @@ class ProductImageController {
     async deleteProductImage(req, res) {
         try {
             const { id } = req.params;
-            const deleted = await ProductImageService.deleteProductImage(id);
-            if (!deleted) return res.status(404).json({ message: 'Product Image not found' });
+            await ProductImageService.deleteProductImage(id);
             res.status(204).send();
         } catch (error) {
+            if (error.message === 'Product Image not found') {
+                return res.status(404).json({ message: error.message });
+            }
+
+            console.error('Error eliminando imagen:', error);
             res.status(500).json({ error: error.message });
         }
     }
