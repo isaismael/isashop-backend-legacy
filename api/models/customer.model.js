@@ -1,40 +1,47 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connect');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connect");
 
-class Customer extends Model { }
+class Customer extends Model {}
 
-Customer.init({
+Customer.init(
+  {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     last_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     phone: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     email: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }
-}, {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
     sequelize,
-    modelName: 'Customer',
-    tableName: 'customer',
+    modelName: "Customer",
+    tableName: "customer",
     timestamps: true,
-    underscored: true
-})
+    underscored: true,
+  },
+);
 
 module.exports = Customer;
