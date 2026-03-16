@@ -42,6 +42,18 @@ class CustomerController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  async getCustomers(req, res){
+    try {
+      const page = parseInt(req.params.page) || 1;
+      const limit = parseInt(req.params.limit) || 10;
+      const customers = await CustomerService.getCustomers(page, limit);
+      res.status(200).json(customers);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
 }
 
 module.exports = new CustomerController();
